@@ -1,29 +1,18 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:todos_riverpod/src/common/common.dart';
 
 part 'edit_todo_state.dart';
 
-final editTodoNotifierProvider =
-    StateNotifierProvider<EditTodoNotifier, EditTodoState>(
-  (ref) => EditTodoNotifier(
-    // initialTodo: todo,
-    todosRepository: ref.watch(todosRepositoryProvider),
-  ),
-);
+part 'edit_todo_provider.g.dart';
 
-class EditTodoNotifier extends StateNotifier<EditTodoState> {
-  EditTodoNotifier({
-    required TodosRepository todosRepository,
-    // required Todo? initialTodo,
-  })  : _todosRepository = todosRepository,
-        super(const EditTodoState(
-            // initialTodo: initialTodo,
-            // title: initialTodo?.title ?? '',
-            // description: initialTodo?.description ?? '')
-            ));
+@riverpod
+class EditTodoNotifier extends _$EditTodoNotifier {
+  @override
+  EditTodoState build() => const EditTodoState();
 
-  final TodosRepository _todosRepository;
+  late final TodosRepository _todosRepository =
+      ref.watch(todosRepositoryProvider);
 
   void onTitleChanged(String title) {
     state = state.copyWith(title: title);
@@ -34,9 +23,9 @@ class EditTodoNotifier extends StateNotifier<EditTodoState> {
   }
 
   Future<void> onSubmitted() async {
-    // state = state.copyWith(
-    //   status: EditTodoStatus.loading,
-    // );
+    state = state.copyWith(
+      status: EditTodoStatus.loading,
+    );
 
     final todo = (state.initialTodo ?? Todo(title: '')).copyWith(
       title: state.title,
