@@ -15,7 +15,8 @@ class TodosOverviewScreen extends ConsumerWidget {
     final l10n = context.l10n;
 
     final todos = ref.watch(todosOverviewNotifierProvider);
-    ref.watch(todosOverviewNotifierProvider.notifier).onSubscriptionRequested();
+    
+    ref.read(todosOverviewNotifierProvider.notifier).onSubscriptionRequested();
 
     ref.listen(
       todosOverviewNotifierProvider.select((state) => state.status),
@@ -99,7 +100,9 @@ class TodosOverviewScreen extends ConsumerWidget {
                     onDismissed: (_) => ref
                         .read(todosOverviewNotifierProvider.notifier)
                         .onTodoDeleted(todo),
-                    onTap: () => Navigator.of(context).push(
+                    onTap:
+                        () => //Navigator.of(context).pushNamed('/edit_todo', arguments: todo),
+                            Navigator.of(context).push(
                       EditTodoPage.route(initialTodo: todo),
                     ),
                   ),

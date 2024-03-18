@@ -11,10 +11,9 @@ class StatsScreen extends ConsumerStatefulWidget {
 }
 
 class _StatsScreenState extends ConsumerState<StatsScreen> {
-
-@override
+  @override
   void initState() {
-  ref.read(statsProvider.notifier).onSubscriptionRequested();
+    ref.read(statsNotifierProvider.notifier).onSubscriptionRequested();
     super.initState();
   }
 
@@ -23,7 +22,7 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
     final l10n = context.l10n;
     final textTheme = Theme.of(context).textTheme;
 
-    final stats = ref.watch(statsProvider);
+    final stats = ref.watch(statsNotifierProvider);
 
     return Scaffold(
       appBar: AppBar(

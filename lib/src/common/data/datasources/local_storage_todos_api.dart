@@ -14,7 +14,7 @@ class LocalStorageTodosApi extends TodosApi {
     _init();
   }
 
-  SharedPreferences _sharedPreferences;
+  final SharedPreferences _sharedPreferences;
 
   final _todoStreamController = BehaviorSubject<List<Todo>>.seeded(const []);
 

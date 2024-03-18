@@ -25,7 +25,8 @@ class TodosHomeScreen extends ConsumerWidget {
       floatingActionButton: FloatingActionButton(
         shape: const CircleBorder(),
         key: const Key('homeView_addTodo_floatingActionButton'),
-        onPressed: () => Navigator.of(context).push(EditTodoPage.route()),
+        onPressed: () => //Navigator.of(context).pushNamed('/edit_todo'),
+            Navigator.of(context).push(EditTodoPage.route()),
         child: const Icon(Icons.add),
       ),
       bottomNavigationBar: BottomAppBar(

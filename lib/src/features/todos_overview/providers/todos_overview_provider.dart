@@ -1,28 +1,21 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:todos_riverpod/src/common/common.dart';
 import 'package:todos_riverpod/src/features/todos_overview/todos_overview.dart';
 
 part 'todos_overview_state.dart';
 
-final todosOverviewNotifierProvider =
-    StateNotifierProvider<TodosOverviewNotifier, TodosOverviewState>(
-  (ref) => TodosOverviewNotifier(
-    todosRepository: ref.watch(todosRepositoryProvider),
-  ),
-);
+part 'todos_overview_provider.g.dart';
 
-class TodosOverviewNotifier extends StateNotifier<TodosOverviewState> {
-  TodosOverviewNotifier({
-    required TodosRepository todosRepository,
-  })  : _todosRepository = todosRepository,
-        super(const TodosOverviewState());
+@riverpod
+class TodosOverviewNotifier extends _$TodosOverviewNotifier {
+  @override
+  TodosOverviewState build() => const TodosOverviewState();
 
-  final TodosRepository _todosRepository;
+  late final TodosRepository _todosRepository =
+      ref.watch(todosRepositoryProvider);
 
   Future<void> onSubscriptionRequested() async {
-    // state = state.copyWith(status: () => TodosOverviewStatus.loading);
-
     final todos = _todosRepository.getTodos();
 
     await todos.listen(
