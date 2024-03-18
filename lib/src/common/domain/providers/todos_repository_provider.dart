@@ -9,35 +9,11 @@ SharedPreferences sharedPreferences(SharedPreferencesRef ref) =>
     throw UnimplementedError();
 
 @Riverpod(keepAlive: true)
-TodosApi localStorageTodosApi(LocalStorageTodosApiRef ref) 
-{
-    // final SharedPreferences sharedPreferences =
-    //    SharedPreferences.getInstance().then((value) => value);
-
+TodosApi localStorageTodosApi(LocalStorageTodosApiRef ref) {
   return LocalStorageTodosApi(
-        sharedPreferences: ref.watch(sharedPreferencesProvider));
+      sharedPreferences: ref.watch(sharedPreferencesProvider));
 }
-   
 
 @Riverpod(keepAlive: true)
 TodosRepository todosRepository(TodosRepositoryRef ref) =>
     TodosRepositoryImpl(todosApi: ref.watch(localStorageTodosApiProvider));
-
-
-
-
-// final todosRepositoryProvider = Provider<TodosRepository>((ref) {
-//   final todosApi = ref.watch(localStorageTodosApiProvider);
-//   return TodosRepositoryImpl(todosApi: todosApi);
-// });
-
-// final todosApiProvider = Provider.family<TodosApi, SharedPreferences>(
-//   (_, sharedPreferences) =>
-//       LocalStorageTodosApi(sharedPreferences: sharedPreferences),
-// );
-
-// final sharedPreferencesProvider =
-//     FutureProvider<SharedPreferences>((ref) async {
-//   return SharedPreferences.getInstance();
-// });
-
