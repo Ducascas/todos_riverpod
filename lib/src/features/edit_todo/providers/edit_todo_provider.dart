@@ -9,7 +9,11 @@ part 'edit_todo_provider.g.dart';
 @riverpod
 class EditTodoNotifier extends _$EditTodoNotifier {
   @override
-  EditTodoState build() => const EditTodoState();
+  EditTodoState build(Todo? initialTodo) => EditTodoState(
+        initialTodo: initialTodo,
+        title: initialTodo?.title ?? '',
+        description: initialTodo?.description ?? '',
+      );
 
   late final TodosRepository _todosRepository =
       ref.watch(todosRepositoryProvider);

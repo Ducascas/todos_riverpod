@@ -6,19 +6,20 @@ import 'package:todos_riverpod/src/common/common.dart';
 import 'package:todos_riverpod/src/features/edit_todo/edit_todo.dart';
 
 class EditTodoPage extends ConsumerWidget {
-  const EditTodoPage({super.key});
+  const EditTodoPage(this.initialTodo, {super.key});
+  final Todo? initialTodo;
 
   static Route<void> route({Todo? initialTodo}) {
     return MaterialPageRoute(
       fullscreenDialog: true,
-      builder: (context) => const EditTodoPage(),
+      builder: (context) => EditTodoPage(initialTodo),
     );
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.listen(
-      editTodoNotifierProvider.select((state) => state.status),
+      editTodoNotifierProvider(initialTodo).select((state) => state.status),
       ((previous, next) {
         if (previous != next) {
           if (next == EditTodoStatus.success) {
@@ -27,17 +28,18 @@ class EditTodoPage extends ConsumerWidget {
         }
       }),
     );
-    return const EditTodoScreen();
+    return EditTodoScreen(initialTodo);
   }
 }
 
 class EditTodoScreen extends ConsumerWidget {
-  const EditTodoScreen({super.key});
+  const EditTodoScreen(this.initialTodo, {super.key});
+  final Todo? initialTodo;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = context.l10n;
-    final editTodo = ref.watch(editTodoNotifierProvider);
+    final editTodo = ref.watch(editTodoNotifierProvider(initialTodo));
     final status = editTodo.status;
     final isNewTodo = editTodo.isNewTodo;
 
@@ -56,17 +58,22 @@ class EditTodoScreen extends ConsumerWidget {
         ),
         onPressed: status.isLoadingOrSuccess
             ? null
-            : () => ref.read(editTodoNotifierProvider.notifier).onSubmitted(),
+            : () => ref
+                .read(editTodoNotifierProvider(initialTodo).notifier)
+                .onSubmitted(),
         child: status.isLoadingOrSuccess
             ? const CupertinoActivityIndicator()
             : const Icon(Icons.check_rounded),
       ),
-      body: const Scrollbar(
+      body: Scrollbar(
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             child: Column(
-              children: [_TitleField(), _DescriptionField()],
+              children: [
+                _TitleField(initialTodo),
+                _DescriptionField(initialTodo)
+              ],
             ),
           ),
         ),
@@ -76,12 +83,14 @@ class EditTodoScreen extends ConsumerWidget {
 }
 
 class _TitleField extends ConsumerWidget {
-  const _TitleField();
+  const _TitleField(this.initialTodo);
+
+  final Todo? initialTodo;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = context.l10n;
-    final editTodoState = ref.watch(editTodoNotifierProvider);
+    final editTodoState = ref.watch(editTodoNotifierProvider(initialTodo));
     final hintText = editTodoState.initialTodo?.title ?? '';
 
     return TextFormField(
@@ -96,20 +105,22 @@ class _TitleField extends ConsumerWidget {
         LengthLimitingTextInputFormatter(50),
         FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9\s]')),
       ],
-      onChanged: (value) =>
-          ref.read(editTodoNotifierProvider.notifier).onTitleChanged(value),
+      onChanged: (value) => ref
+          .read(editTodoNotifierProvider(initialTodo).notifier)
+          .onTitleChanged(value),
     );
   }
 }
 
 class _DescriptionField extends ConsumerWidget {
-  const _DescriptionField();
+  const _DescriptionField(this.initialTodo);
+  final Todo? initialTodo;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = context.l10n;
 
-    final editTodoState = ref.watch(editTodoNotifierProvider);
+    final editTodoState = ref.watch(editTodoNotifierProvider(initialTodo));
     final hintText = editTodoState.initialTodo?.description ?? '';
 
     return TextFormField(
@@ -126,7 +137,7 @@ class _DescriptionField extends ConsumerWidget {
         LengthLimitingTextInputFormatter(300),
       ],
       onChanged: (value) => ref
-          .read(editTodoNotifierProvider.notifier)
+          .read(editTodoNotifierProvider(initialTodo).notifier)
           .onDescriptionChanged(value),
     );
   }
