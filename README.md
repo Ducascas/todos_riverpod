@@ -11,4 +11,4 @@ Todos app with Riverpod.
 
 Для генерации кода используется riverpod_generator.
 
-Для работы хранения данных используется shared_preferences.
+Для хранения данных используется shared_preferences.
