@@ -4,7 +4,6 @@ import 'package:todos_riverpod/src/common/common.dart';
 import 'package:todos_riverpod/src/features/todos_overview/todos_overview.dart';
 
 part 'todos_overview_state.dart';
-
 part 'todos_overview_provider.g.dart';
 
 @riverpod
