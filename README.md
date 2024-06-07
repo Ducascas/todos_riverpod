@@ -12,3 +12,5 @@ Todos app with Riverpod.
 Для генерации кода используется riverpod_generator.
 
 Для хранения данных используется shared_preferences.
+
+![Screenshot_1717800763](https://github.com/Ducascas/todos_riverpod/assets/100170314/03e32f20-b422-44fb-a58c-8ac7d808733a)
