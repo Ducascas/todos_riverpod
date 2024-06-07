@@ -13,7 +13,9 @@ Todos app with Riverpod.
 
 Для хранения данных используется shared_preferences.
 
-![Screenshot_1717800763](https://github.com/Ducascas/todos_riverpod/assets/100170314/23189d92-59f8-4731-af7f-8e127f6da308)
-![Screenshot_1717800768](https://github.com/Ducascas/todos_riverpod/assets/100170314/ba9879ea-947a-4f3a-bb0f-ce45cc587df1)
-![Screenshot_1717800776](https://github.com/Ducascas/todos_riverpod/assets/100170314/301ee2db-f9d2-439e-a008-7e6df4d90fc0)
-![Screenshot_1717800779](https://github.com/Ducascas/todos_riverpod/assets/100170314/b1b78bea-ed62-4015-8f3f-8ae6589848eb)
+<img src="https://github.com/Ducascas/todos_riverpod/assets/100170314/2fa35f6b-ff68-45c5-970c-a18521fed68c" width="240" height="460">
+<img src="https://github.com/Ducascas/todos_riverpod/assets/100170314/8b357093-300f-4789-8edd-48de6b795675" width="240" height="460">
+<img src="https://github.com/Ducascas/todos_riverpod/assets/100170314/9b04bcc6-b2cf-4fbc-8508-f6c309f56cf9" width="240" height="460">
+<img src="https://github.com/Ducascas/todos_riverpod/assets/100170314/0701ef73-e667-4ba4-8fcd-25e0eaf76016" width="240" height="460">
+
+
